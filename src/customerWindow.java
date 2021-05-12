@@ -11,40 +11,33 @@ public class customerWindow {
 
 
         JFrame frame = new JFrame();
+        frame.setTitle("Customer Menu");
 
         JLabel l;
         l = new JLabel("label1");
         l.setText("CHOOSE AND PAY");
         l.setBounds(30,50, 150,50);
-
         frame.add(l);
 
         JLabel ll;
         ll = new JLabel("label2");
         ll.setText("YOUR ORDER");
         ll.setBounds(320,50, 150,50);
-
         frame.add(ll);
 
         JLabel burgerorder;
         burgerorder = new JLabel();
-
         burgerorder.setBounds(320,80, 150,50);
-
         frame.add(burgerorder);
 
         JLabel friesorder;
         friesorder = new JLabel();
-
         friesorder.setBounds(320,150, 150,50);
-
         frame.add(friesorder);
 
         JLabel cokeorder;
         cokeorder = new JLabel();
-
         cokeorder.setBounds(320,230, 150,50);
-
         frame.add(cokeorder);
 
 
@@ -64,8 +57,6 @@ public class customerWindow {
         JButton cokeButton = new JButton("Coke");
         cokeButton.setBounds(20,240,89,23);
         frame.add(cokeButton);
-
-
 
 
 
@@ -95,11 +86,6 @@ public class customerWindow {
 
         frame.setTitle("Customer Order");
         frame.setVisible(true);
-
-
-
-
-
 
 
 
@@ -226,20 +212,6 @@ public class customerWindow {
             }
         });
         frame.add(coke);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
