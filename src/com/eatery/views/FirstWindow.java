@@ -1,3 +1,5 @@
+package com.eatery.views;
+
 import javax.swing.*;
 
 
@@ -5,16 +7,22 @@ import javax.swing.JButton;
         import javax.swing.JFrame;
         import javax.swing.JOptionPane;
 
-public class firstWindow {
+public class FirstWindow {
 
     public static void main(final String[] args) {
-        final JFrame parent = new JFrame();
-        JButton button = new JButton();
+        JFrame parent = new JFrame();
+        JLabel welcomeMessage = new JLabel();
+        welcomeMessage.setBounds(100,50,300,100);
+        welcomeMessage.setText("***WELCOME TO THE CAFE***");
 
+        parent.getContentPane().setLayout(null);
+        parent.add(welcomeMessage);
+
+        JButton button = new JButton();
         button.setText("Start Application");
+        button.setBounds(120, 150, 150, 23);
         parent.add(button);
-        parent.setSize(600,600);
-        parent.pack();
+        parent.setSize(400,400);
         parent.setVisible(true);
 
         button.addActionListener(new java.awt.event.ActionListener() {
@@ -31,9 +39,10 @@ public class firstWindow {
 
                 System.out.println("opt"+opt);
 
-
-
-
+                if(opt == 1){
+                    CustomerWindow.main();
+                    parent.setVisible(false);
+                }
 
 
             }

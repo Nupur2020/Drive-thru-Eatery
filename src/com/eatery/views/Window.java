@@ -1,3 +1,5 @@
+package com.eatery.views;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -63,6 +65,14 @@ public class Window {
         });
         frame.add(menu);
 
+        item1.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent ev){
+                String item = "Burger";
+            }
+        });
+
+
+
         JButton btnpriceclick = new JButton("Price");
         btnpriceclick.setBounds(220,30,89,23);
         frame.getContentPane().add(btnpriceclick);
@@ -85,6 +95,8 @@ public class Window {
             }
         });
         frame.add(price);
+
+
 
 
     }}

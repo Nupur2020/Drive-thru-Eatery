@@ -1,3 +1,4 @@
+package com.eatery.views;
 
 import javax.swing.*;
 import java.awt.*;
@@ -6,7 +7,7 @@ import java.awt.event.ActionEvent;
         import java.awt.event.MouseAdapter;
         import java.awt.event.MouseEvent;
 
-public class customerWindow {
+public class CustomerWindow {
     public static void main() {
 
 
