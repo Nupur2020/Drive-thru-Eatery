@@ -5,6 +5,8 @@ public class Burger extends Item {
         super(itemId, itemName, price, visibility, offers, type);
     }
 
+
+
     @Override
     public int getTotalPrice() {
         return 0;
