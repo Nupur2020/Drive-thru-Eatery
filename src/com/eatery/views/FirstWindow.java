@@ -7,25 +7,42 @@ import javax.swing.JButton;
         import javax.swing.JFrame;
         import javax.swing.JOptionPane;
 
-public class FirstWindow {
+public class FirstWindow{
+    static public JFrame parent = new JFrame();
+    JLabel welcomeMessage;
 
-    public static void main(final String[] args) {
-        JFrame parent = new JFrame();
-        JLabel welcomeMessage = new JLabel();
+    public JButton getStartButton() {
+        return startButton;
+    }
+
+    public void setStartButton(JButton startButton) {
+        this.startButton = startButton;
+    }
+
+    JButton startButton;
+
+
+
+    public FirstWindow(){
+        welcomeMessage = new JLabel();
         welcomeMessage.setBounds(100,50,300,100);
         welcomeMessage.setText("***WELCOME TO THE CAFE***");
 
         parent.getContentPane().setLayout(null);
         parent.add(welcomeMessage);
 
-        JButton button = new JButton();
-        button.setText("Start Application");
-        button.setBounds(120, 150, 150, 23);
-        parent.add(button);
+        startButton = new JButton();
+        startButton.setText("Start Application");
+        startButton.setBounds(120, 150, 150, 23);
+        parent.add(startButton);
         parent.setSize(400,400);
         parent.setVisible(true);
+    }
 
-        button.addActionListener(new java.awt.event.ActionListener() {
+
+
+
+        /*button.addActionListener(new java.awt.event.ActionListener() {
             @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 //String name = JOptionPane.showInputDialog(parent,
@@ -40,15 +57,15 @@ public class FirstWindow {
                 System.out.println("opt"+opt);
 
                 if(opt == 1){
-                    CustomerWindow.main();
+                    //CustomerWindow.main();
                     parent.setVisible(false);
                 }
 
 
             }
-        });
+        });*/
     }
-}
+
 
 
 

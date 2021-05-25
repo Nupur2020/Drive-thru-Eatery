@@ -17,7 +17,7 @@ public class MysqlCon {
     // try{
     public MysqlCon() throws SQLException, ClassNotFoundException {
 
-        Class.forName("com.mysql.cj.jdbc.Driver");
+        Class.forName("com.mysql.jdbc.Driver");
         con = DriverManager.getConnection(
                 "jdbc:mysql://localhost:3306/drive_thru", "root", "mysql95");
         System.out.println("Connection Created");

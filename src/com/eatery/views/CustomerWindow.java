@@ -1,4 +1,7 @@
+/*
 package com.eatery.views;
+
+import com.eatery.data.MysqlCon;
 
 import javax.swing.*;
 import java.awt.*;
@@ -6,9 +9,12 @@ import java.awt.event.ActionEvent;
         import java.awt.event.ActionListener;
         import java.awt.event.MouseAdapter;
         import java.awt.event.MouseEvent;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 
 public class CustomerWindow {
-    public static void main() {
+    public static void main(String[] args) {
+        MysqlCon mysqlCon;
 
 
         JFrame frame = new JFrame();
@@ -47,17 +53,21 @@ public class CustomerWindow {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.getContentPane().setLayout(null);
 
-        JButton burgersButton = new JButton("Burgers");
-        burgersButton.setBounds(20, 100, 89, 23);
-        frame.add(burgersButton);
+        JLabel burgersLabel = new JLabel("Burgers");
+        burgersLabel.setBounds(20, 100, 89, 23);
+        frame.add(burgersLabel);
 
-        JButton friesButton = new JButton("Fries");
-        friesButton.setBounds(20,170,89,23);
-        frame.add(friesButton);
+        JLabel addonsLabel = new JLabel("ADD ON'S");
+        addonsLabel.setBounds(30,170,150,50);
+        frame.add(addonsLabel);
 
-        JButton cokeButton = new JButton("Coke");
-        cokeButton.setBounds(20,240,89,23);
-        frame.add(cokeButton);
+        JLabel friesLabel = new JLabel("Fries");
+        friesLabel.setBounds(20,240,89,23);
+        frame.add(friesLabel);
+
+        JLabel cokeLabel = new JLabel("Coke");
+        cokeLabel.setBounds(20,310,89,23);
+        frame.add(cokeLabel);
 
 
 
@@ -80,27 +90,51 @@ public class CustomerWindow {
             }
         };
 
-        JButton addButton = new JButton("BUY");
-        addButton.addActionListener(BuyListener);
-        addButton.setBounds(60,310,150,23);
-        frame.add(addButton);
+        JButton buyButton = new JButton("BUY");
+        buyButton.addActionListener(BuyListener);
+        buyButton.setBounds(60,380,150,23);
+        frame.add(buyButton);
 
         frame.setTitle("Customer Order");
         frame.setVisible(true);
 
 
 
-        class AddInterestListener implements ActionListener {
+        */
+/*class AddInterestListener implements ActionListener {
             public void actionPerformed(ActionEvent event) {
                 System.out.println("hello, I was pressed");
             }
-        }
-
-        ActionListener listener = new AddInterestListener();
-        burgersButton.addActionListener(listener);
+        }*//*
 
 
-        JButton btnClickMe = new JButton("Item");
+        //ArrayList list = mysqlcon.getItemsList();
+        String[] itemsArray = (String[]) list.toArray(new String[0]);
+        JComboBox burgersCB = new JComboBox(itemsArray);
+        burgersCB.setBounds(120,100,89,23);
+        frame.add(burgersCB);
+        burgersCB.setVisible(true);
+
+        String [] toppingsArray = {"Cheese Topping :  $5", "Caramel Topping : $3"};
+        JComboBox toppingsCB = new JComboBox(toppingsArray);
+        toppingsCB.setBounds(120,240,89,23);
+        frame.add(toppingsCB);
+        toppingsCB.setVisible(true);
+
+        String [] cokeSizeArray = {"Small Coke : $4", "Large Coke : $ 6"};
+        JComboBox cokeSizeCB = new JComboBox(cokeSizeArray);
+        cokeSizeCB.setBounds(120,310,89,23);
+        frame.add(cokeSizeCB);
+        cokeSizeCB.setVisible(true);
+
+        */
+/*ActionListener listener = new AddInterestListener();
+        burgersButton.addActionListener(listener);*//*
+
+
+
+        */
+/*JButton btnClickMe = new JButton("Item");
         btnClickMe.setBounds(120, 100, 89, 23);
         frame.getContentPane().add(btnClickMe);
 
@@ -139,6 +173,7 @@ public class CustomerWindow {
             }
         });
         frame.add(menu);
+*//*
 
 
      //   ====
@@ -216,7 +251,8 @@ public class CustomerWindow {
 
 
 
-       /* JButton btnpriceclick = new JButton("Price");
+       */
+/* JButton btnpriceclick = new JButton("Price");
         btnpriceclick.setBounds(220,170,89,23);
         frame.getContentPane().add(btnpriceclick);
 
@@ -237,7 +273,9 @@ public class CustomerWindow {
                 }
             }
         });
-        frame.add(price);*/
+        frame.add(price);*//*
+
 
 
     }}
+*/

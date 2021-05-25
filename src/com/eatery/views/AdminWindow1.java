@@ -31,7 +31,7 @@ public class AdminWindow1 {
 
 
 
-    public AdminWindow1(String title, MysqlCon mysqlcon) {
+    public AdminWindow1(MysqlCon mysqlcon) {
 
         this.mysqlcon = mysqlcon;
 
