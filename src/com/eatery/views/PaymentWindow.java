@@ -28,41 +28,57 @@ public class PaymentWindow {
         billingFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         billingFrame.getContentPane().setLayout(null);
 
+        detailsMessage =new JLabel();
         detailsMessage.setBounds(20, 15, 300, 23);
         detailsMessage.setText("ENTER CARD DETAILS:");
         billingFrame.add(detailsMessage);
 
+        creditCardNum =new JLabel();
         creditCardNum.setBounds(20, 50, 100, 23);
         creditCardNum.setText("Card Number:");
         billingFrame.add(creditCardNum);
 
+        creditCardName =new JLabel();
         creditCardName.setBounds(20, 80, 100, 23);
         creditCardName.setText("Card Name:");
         billingFrame.add(creditCardName);
 
+        creditCardExpiry =new JLabel();
         creditCardExpiry.setBounds(20, 110, 100, 23);
         creditCardExpiry.setText("Card Expiry:");
         billingFrame.add(creditCardExpiry);
 
+        creditCardCVV =new JLabel();
         creditCardCVV.setBounds(20, 140, 100, 23);
         creditCardCVV.setText("Card CVV:");
         billingFrame.add(creditCardCVV);
 
+        successMessage =new JLabel();
         successMessage.setBounds(20, 200, 300, 23);
         successMessage.setText("Payment Successful. Enjoy your meal!!");
         billingFrame.add(successMessage);
 
+        failureMessage =new JLabel();
+        failureMessage.setBounds(20, 220, 300, 23);
+        failureMessage.setText("Payment failed.Please try again.");
+        billingFrame.add(failureMessage);
+
+        creditCardNumTextField = new JTextField();
         creditCardNumTextField.setBounds(120, 50, 200, 23);
         billingFrame.getContentPane().add(creditCardNumTextField);
 
+        creditCardNameTextField = new JTextField();
         creditCardNameTextField.setBounds(120, 80, 250, 23);
         billingFrame.getContentPane().add(creditCardNameTextField);
 
+        creditCardExpiryTextField = new JTextField();
         creditCardExpiryTextField.setBounds(120, 110, 150, 23);
         billingFrame.getContentPane().add(creditCardExpiryTextField);
 
+        creditCardCVVTextField = new JTextField();
         creditCardCVVTextField.setBounds(120, 140, 50, 23);
         billingFrame.getContentPane().add(creditCardCVVTextField);
+
 
         payButton = new JButton("Pay");
         payButton.setBounds(320, 200, 100, 23);

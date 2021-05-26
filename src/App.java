@@ -22,12 +22,13 @@ public class App {
             // TODO STEP 2 Read the data from database
             ArrayList<Item> data = mysqlCon.getItemsList();
             // TODO STEP 3 Initialize UI
-            AdminWindow1 adminWindow1 = new AdminWindow1();
-            CustomerWindow1 customerWindow1 = new CustomerWindow1();
+            //AdminWindow1 adminWindow1 = new AdminWindow1();
+            //CustomerWindow1 customerWindow1 = new CustomerWindow1();
             FirstWindow firstWindow = new FirstWindow();
-            PaymentWindow paymentWindow= new PaymentWindow();
+           // PaymentWindow paymentWindow= new PaymentWindow();
             // TODO STEP 4 Init Controller
-            Controller c = new Controller(adminWindow1,customerWindow1, firstWindow, paymentWindow, data, mysqlCon);
+            //Controller c = new Controller(adminWindow1,customerWindow1, firstWindow, paymentWindow, data, mysqlCon);
+            Controller c = new Controller(firstWindow, data, mysqlCon);
             c.initController();
         }
     }

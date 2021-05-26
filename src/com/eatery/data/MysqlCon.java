@@ -20,7 +20,7 @@ public class MysqlCon {
 
         Class.forName("com.mysql.cj.jdbc.Driver");
         con = DriverManager.getConnection(
-                "jdbc:mysql://localhost:3306/drive_thru", "root", "password");
+                "jdbc:mysql://localhost:3306/drive_thru", "root", "mysql95");
         System.out.println("Connection Created");
     }
 
