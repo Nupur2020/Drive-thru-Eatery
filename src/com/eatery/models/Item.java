@@ -1,7 +1,7 @@
 package com.eatery.models;
 
 public abstract class Item {
-    int itemId;
+    private int itemId;
     String itemName;
     int price;
     Boolean visibility;
