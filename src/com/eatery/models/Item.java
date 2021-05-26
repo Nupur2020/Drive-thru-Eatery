@@ -35,5 +35,4 @@ public abstract class Item {
 
     abstract public int getTotalPrice();
 
-    abstract public void changePrice();
 }

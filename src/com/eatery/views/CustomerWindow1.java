@@ -1,13 +1,13 @@
 package com.eatery.views;
 
 import com.eatery.data.MysqlCon;
+import com.eatery.models.Item;
 
 import javax.swing.*;
 import java.util.ArrayList;
+import java.util.List;
 
 public class CustomerWindow1 {
-
-    MysqlCon mysqlcon;
     static JFrame frame = new JFrame();
     JLabel l;
     JLabel ll;
@@ -27,9 +27,7 @@ public class CustomerWindow1 {
     JComboBox toppingsCB;
     JComboBox cokeSizeCB;
 
-    public CustomerWindow1(MysqlCon mysqlcon){
-        this.mysqlcon = mysqlcon;
-
+    public CustomerWindow1(){
         frame.setTitle("Customer Window");
         frame.setBounds(50, 50, 500, 500);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -78,9 +76,8 @@ public class CustomerWindow1 {
         buyButton.setBounds(60,380,150,23);
         frame.add(buyButton);
 
-        ArrayList list = mysqlcon.getItemsList();
-        String[] itemsArray = (String[]) list.toArray(new String[0]);
-        burgersCB = new JComboBox(itemsArray);
+        //String[] itemsArray = (String[]) list.toArray(new String[0]);
+        burgersCB = new JComboBox();
         burgersCB.setBounds(120,100,89,23);
         frame.add(burgersCB);
         burgersCB.setVisible(true);
@@ -133,4 +130,5 @@ public class CustomerWindow1 {
     public void setCokeSizeCB(JComboBox cokeSizeCB) {
         this.cokeSizeCB = cokeSizeCB;
     }
+
 }

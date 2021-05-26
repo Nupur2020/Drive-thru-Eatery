@@ -26,14 +26,12 @@ public class AdminWindow1 {
 
     private JComboBox itemsCBPrice;
     private JComboBox itemsCBOffer;
-    MysqlCon mysqlcon;
 
 
 
 
-    public AdminWindow1(MysqlCon mysqlcon) {
 
-        this.mysqlcon = mysqlcon;
+    public AdminWindow1() {
 
         frame.setTitle("Admin Account");
         frame.setBounds(50, 50, 500, 300);
@@ -61,14 +59,10 @@ public class AdminWindow1 {
         changePrice.setText("Change Price");
         frame.add(changePrice);
 
-
-        ArrayList list = this.mysqlcon.getItemsList();
-        String[] itemsArray = (String[]) list.toArray(new String[0]);
-        itemsCBPrice = new JComboBox(itemsArray);
+        itemsCBPrice = new JComboBox();
         itemsCBPrice.setBounds(120, 100, 89, 23);// change the bounds
         frame.add(itemsCBPrice);
         itemsCBPrice.setVisible(true);
-
 
         changePriceTextField.setBounds(220, 100, 89, 23);
         frame.getContentPane().add(changePriceTextField);
@@ -82,9 +76,8 @@ public class AdminWindow1 {
         changeOffers.setText("Change Offers");
         frame.add(changeOffers);
 
-        ArrayList list1 = this.mysqlcon.getItemsList();
-        String[] itemsArray1 = (String[]) list1.toArray(new String[0]);
-        itemsCBOffer = new JComboBox(itemsArray1);
+        itemsCBOffer = new JComboBox();
+
         itemsCBOffer.setBounds(120, 170, 89, 23);// change the bounds
         frame.add(itemsCBOffer);
         itemsCBOffer.setVisible(true);

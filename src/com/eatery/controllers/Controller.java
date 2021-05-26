@@ -4,6 +4,7 @@ import com.eatery.models.Item;
 import com.eatery.views.*;
 
 import javax.swing.*;
+import java.util.ArrayList;
 
 public class Controller {
 
@@ -11,12 +12,12 @@ public class Controller {
     private CustomerWindow1 customerWindow1;
     private FirstWindow firstWindow;
     private PaymentWindow paymentWindow;
-    private Item model;
+    private ArrayList<Item> data;
     private MysqlCon mysqlCon;
 
     public Controller(AdminWindow1 adminWindow1, CustomerWindow1 customerWindow1, FirstWindow firstWindow,
-                      PaymentWindow paymentWindow, Item model, MysqlCon mysqlCon) {
-        this.model = model;
+                      PaymentWindow paymentWindow, ArrayList<Item> data, MysqlCon mysqlCon) {
+        this.data = data;
         this.adminWindow1 = adminWindow1;
         this.customerWindow1 = customerWindow1;
         this.firstWindow = firstWindow;
@@ -37,6 +38,9 @@ public class Controller {
     public void initController() {
         firstWindow.getStartButton().addActionListener(e -> startApplication());
         System.out.println("Entered save");
+        adminWindow1.getItemsCBPrice().addItem(getItemNames());
+        adminWindow1.getItemsCBOffer().addItem(getItemNames());
+        customerWindow1.getBurgersCB().addItem(getItemNames());
         adminWindow1.getAddFoodItemButton().addActionListener(e -> saveFoodItem());
         adminWindow1.getPriceUpdateButton().addActionListener(e -> saveUpdatedPrice());
         adminWindow1.getOfferUpdateButton().addActionListener(e -> saveUpdatedOffer());
@@ -51,10 +55,10 @@ public class Controller {
                 "Accounts",
                 JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
         if(opt == 1){
-            CustomerWindow1 customerWindow = new CustomerWindow1(mysqlCon);
+            CustomerWindow1 customerWindow = new CustomerWindow1();
             FirstWindow.parent.setVisible(false);
         } else{
-            AdminWindow1 adminWindow = new AdminWindow1(mysqlCon);
+            AdminWindow1 adminWindow = new AdminWindow1();
             FirstWindow.parent.setVisible(false);
         }
     }
@@ -83,6 +87,14 @@ public class Controller {
         mysqlCon.updateOfferInAdminWindow1(adminWindow1, getComboSelectedItemOffer());
     }
 
+    private String[] getItemNames() {
+        String[] itemNames = new String[data.size()];
+
+        for (int i = 0; i < data.size(); i++) {
+            itemNames[i] = data.get(i).getItemName();
+        }
+        return itemNames;
+    }
 }
 
 

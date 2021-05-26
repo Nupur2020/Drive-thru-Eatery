@@ -5,7 +5,6 @@ import com.eatery.data.MysqlCon;
 import javax.swing.*;
 
 public class PaymentWindow {
-    MysqlCon mysqlCon;
     JFrame billingFrame = new JFrame();
     JButton payButton;
 
@@ -23,8 +22,7 @@ public class PaymentWindow {
     JTextField creditCardCVVTextField;
 
 
-    public PaymentWindow(MysqlCon mysqlCon){
-        this.mysqlCon = mysqlCon;
+    public PaymentWindow(){
         billingFrame.setTitle("Payment Window");
         billingFrame.setBounds(50, 50, 500, 300);
         billingFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

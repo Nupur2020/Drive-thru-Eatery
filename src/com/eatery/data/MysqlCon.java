@@ -1,6 +1,7 @@
 package com.eatery.data;
 
 import com.eatery.controllers.Controller;
+import com.eatery.models.Item;
 import com.eatery.views.AdminWindow1;
 
 import java.sql.*;
@@ -17,9 +18,9 @@ public class MysqlCon {
     // try{
     public MysqlCon() throws SQLException, ClassNotFoundException {
 
-        Class.forName("com.mysql.jdbc.Driver");
+        Class.forName("com.mysql.cj.jdbc.Driver");
         con = DriverManager.getConnection(
-                "jdbc:mysql://localhost:3306/drive_thru", "root", "mysql95");
+                "jdbc:mysql://localhost:3306/drive_thru", "root", "password");
         System.out.println("Connection Created");
     }
 
@@ -90,22 +91,36 @@ public class MysqlCon {
 
 
 
-    public ArrayList getItemsList(){
+    public ArrayList<Item> getItemsList(){
+        ArrayList<Item> result = new ArrayList<>();
         try {
-            ArrayList<String> inner = new ArrayList<String>();
             statement = (Statement) con.createStatement();
-            String sql;
-            sql = "select * from items";
+            String sql = "select * from items";
             ResultSet resultSet = statement.executeQuery(sql);
-            while (resultSet.next()) {
-                inner.add(resultSet.getString("ItemName"));
-            }
 
-            return inner;
+            while (resultSet.next()) {
+                int itemId = resultSet.getInt("ItemId");
+                String itemName = resultSet.getString("ItemName");
+                int price = resultSet.getInt("Price");
+                Boolean visibility = resultSet.getBoolean("Visibility");
+                int offers = resultSet.getInt("Offers");
+                String type = resultSet.getString("Type");
+
+
+                Item item = new Item(itemId, itemName, price, visibility, offers, type) {
+                    @Override
+                    public int getTotalPrice() {
+                        return 0;
+                    }
+
+                };
+                result.add(item);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return null;
+
+        return result;
     }
 
 }

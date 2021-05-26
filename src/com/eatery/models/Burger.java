@@ -12,8 +12,4 @@ public class Burger extends Item {
         return 0;
     }
 
-    @Override
-    public void changePrice() {
-
-    }
 }

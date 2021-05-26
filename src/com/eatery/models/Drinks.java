@@ -10,8 +10,4 @@ public class Drinks extends Item {
         return 0;
     }
 
-    @Override
-    public void changePrice() {
-
-    }
 }
