@@ -88,7 +88,11 @@ public class Controller {
 
 
     private void doAdminStuff(AdminWindow1 adminWindow1){
-          adminWindow1.getItemsCBPrice().addItem(getItemNames());
+            String[] itemNames = getItemNames();
+            for(int i=0;i<itemNames.length;i++){
+                adminWindow1.getItemsCBPrice().addItem(itemNames[i]);
+            }
+          //adminWindow1.getItemsCBPrice().addItem(getItemNames());
           adminWindow1.getItemsCBOffer().addItem(getItemNames());
           adminWindow1.getAddFoodItemButton().addActionListener(e -> saveFoodItem(adminWindow1));
           adminWindow1.getPriceUpdateButton().addActionListener(e -> saveUpdatedPrice(adminWindow1));

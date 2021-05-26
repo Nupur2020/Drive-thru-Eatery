@@ -19,8 +19,8 @@ public interface DBHelper {
     public abstract List<Item> getItems();
 
     //UPDATE ITEM
-    public abstract boolean updateItem(Item item);
+    public abstract boolean updateItem(Item item) throws SQLException;
 
     //DELETE ITEM
-    public abstract boolean deleteItem(Item item);
+    public abstract boolean deleteItem(Item item) throws SQLException;
 }

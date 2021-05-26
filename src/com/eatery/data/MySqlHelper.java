@@ -116,12 +116,52 @@ public class MySqlHelper implements DBHelper {
     }
 
     @Override
-    public boolean updateItem(Item item) {
-        return false;
+    public boolean updateItem(Item item) throws SQLException {
+        int rowAffected = -1;
+        try {
+            String query = "UPDATE ITEMS" + "SET ItemName = ?" + "SET Price = ?" + "SET Visibility = ?" + "SET Offers = ?" + "Set Type =?" + "WHERE ItemId = ?";
+
+            PreparedStatement preparedStmt = con.prepareStatement(query);
+            preparedStmt.setString(1, item.getItemName());
+            preparedStmt.setInt(2, item.getPrice());
+            preparedStmt.setBoolean(3, item.getVisibility());
+            preparedStmt.setInt(4, item.getOffers());
+            preparedStmt.setString(5, item.getType());
+            preparedStmt.setInt(6,item.getItemId());
+
+            rowAffected = preparedStmt.executeUpdate();
+
+        } catch(Exception s){
+            s.printStackTrace();
+        } finally {
+            con.close();
+        }
+        if(rowAffected == 1){
+            return true;
+        } else{return false;}
     }
 
+
     @Override
-    public boolean deleteItem(Item item) {
-        return false;
+    public boolean deleteItem(Item item) throws SQLException {
+        int rowAffected = -1;
+        try {
+            String query = "DELETE FROM ITEMS WHERE ItemId =?";
+
+            PreparedStatement preparedStmt = con.prepareStatement(query);
+            preparedStmt.setInt(1, item.getItemId());
+
+
+            rowAffected = preparedStmt.executeUpdate();
+
+        } catch(Exception s){
+            s.printStackTrace();
+        } finally {
+            con.close();
+        }
+        if(rowAffected == 1){
+            return true;
+        } else{return false;}
+
     }
 }
