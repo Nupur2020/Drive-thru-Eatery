@@ -8,7 +8,7 @@ public abstract class Item {
     int offers;
     String type;
 
-    public Item(int itemId, String itemName, int price, Boolean visibility, int offers, String type){
+    Item(int itemId, String itemName, int price, Boolean visibility, int offers, String type){
         this.itemId = itemId;
         this.itemName = itemName;
         this.price = price;

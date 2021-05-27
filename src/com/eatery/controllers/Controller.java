@@ -92,8 +92,11 @@ public class Controller {
             for(int i=0;i<itemNames.length;i++){
                 adminWindow1.getItemsCBPrice().addItem(itemNames[i]);
             }
+        for(int i=0;i<itemNames.length;i++){
+            adminWindow1.getItemsCBOffer().addItem(itemNames[i]);
+        }
           //adminWindow1.getItemsCBPrice().addItem(getItemNames());
-          adminWindow1.getItemsCBOffer().addItem(getItemNames());
+          //adminWindow1.getItemsCBOffer().addItem(getItemNames());
           adminWindow1.getAddFoodItemButton().addActionListener(e -> saveFoodItem(adminWindow1));
           adminWindow1.getPriceUpdateButton().addActionListener(e -> saveUpdatedPrice(adminWindow1));
           adminWindow1.getOfferUpdateButton().addActionListener(e -> saveUpdatedOffer(adminWindow1));
