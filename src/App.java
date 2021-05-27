@@ -1,4 +1,5 @@
 import com.eatery.controllers.Controller;
+import com.eatery.data.MySqlHelper;
 import com.eatery.data.MysqlCon;
 import com.eatery.models.Burger;
 import com.eatery.models.Item;
@@ -16,7 +17,7 @@ public class App {
         public static void main(String[] args) throws SQLException, ClassNotFoundException {
             // Assemble all the pieces of the MVC
             //Fake Data
-            Burger item = new Burger(101, "TofuBurger", 5, true, 10, "burger");
+            //Burger item = new Burger(101, "TofuBurger", 5, true, 10, "burger");
             // TODO: STEP 1 Create a Database connection
             MysqlCon mysqlCon = new MysqlCon();
             // TODO STEP 2 Read the data from database

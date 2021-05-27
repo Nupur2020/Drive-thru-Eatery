@@ -1,9 +1,6 @@
 package com.eatery.data;
 
-import com.eatery.models.Burger;
-import com.eatery.models.Drinks;
-import com.eatery.models.Fries;
-import com.eatery.models.Item;
+import com.eatery.models.*;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -11,11 +8,20 @@ import java.util.List;
 
 public class MySqlHelper implements DBHelper {
     private Connection con;
+    private static MySqlHelper mySqlHelper;
 
-    public MySqlHelper() throws ClassNotFoundException, SQLException {
+    private MySqlHelper() throws ClassNotFoundException, SQLException {
         Class.forName("com.mysql.cj.jdbc.Driver");
         con = DriverManager.getConnection(
                 "jdbc:mysql://localhost:3306/drive_thru", "root", "password");
+    }
+
+    //Singleton Pattern
+    public static MySqlHelper getInstance() throws SQLException, ClassNotFoundException {
+        if(MySqlHelper.mySqlHelper == null){
+            mySqlHelper = new MySqlHelper();
+        }
+        return mySqlHelper;
     }
 
     @Override
@@ -65,11 +71,23 @@ public class MySqlHelper implements DBHelper {
             String type = resultSet.getString("Type");
 
             if(type.equalsIgnoreCase("Burger")) {
-                item = new Burger(itemId, itemName, price, visibility, offers, type);
+                item = new BurgerBuilder(itemName, price)
+                        .setId(itemId)
+                        .setVisibility(visibility)
+                        .setOffers(offers)
+                        .build();
             } else if(type.equalsIgnoreCase("Fries")) {
-                item = new Fries(itemId, itemName, price, visibility, offers, type);
+                item = new FriesBuilder(itemName, price)
+                        .setId(itemId)
+                        .setVisibility(visibility)
+                        .setOffers(offers)
+                        .build();
             } else {
-                item = new Drinks(itemId, itemName, price, visibility, offers, type);
+                item = new DrinksBuilder(itemName, price)
+                        .setId(itemId)
+                        .setVisibility(visibility)
+                        .setOffers(offers)
+                        .build();
             }
 
         } catch(Exception s){
@@ -100,11 +118,23 @@ public class MySqlHelper implements DBHelper {
 
                 Item item;
                 if(type.equalsIgnoreCase("Burger")) {
-                    item = new Burger(itemId, itemName, price, visibility, offers, type);
+                    item = new BurgerBuilder(itemName, price)
+                            .setId(itemId)
+                            .setVisibility(visibility)
+                            .setOffers(offers)
+                            .build();
                 } else if(type.equalsIgnoreCase("Fries")) {
-                    item = new Fries(itemId, itemName, price, visibility, offers, type);
+                    item = new FriesBuilder(itemName, price)
+                            .setId(itemId)
+                            .setVisibility(visibility)
+                            .setOffers(offers)
+                            .build();
                 } else {
-                    item = new Drinks(itemId, itemName, price, visibility, offers, type);
+                    item = new DrinksBuilder(itemName, price)
+                            .setId(itemId)
+                            .setVisibility(visibility)
+                            .setOffers(offers)
+                            .build();
                 }
                 result.add(item);
             }
