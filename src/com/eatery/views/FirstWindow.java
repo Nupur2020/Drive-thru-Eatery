@@ -7,7 +7,7 @@ import javax.swing.JButton;
         import javax.swing.JFrame;
         import javax.swing.JOptionPane;
 
-public class FirstWindow{
+public class FirstWindow {
     static public JFrame parent = new JFrame();
     JLabel welcomeMessage;
 

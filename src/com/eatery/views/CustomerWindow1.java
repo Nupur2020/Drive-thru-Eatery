@@ -4,10 +4,12 @@ import com.eatery.data.MysqlCon;
 import com.eatery.models.Item;
 
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CustomerWindow1 {
+public class CustomerWindow1 extends View {
     static JFrame frame = new JFrame();
     JLabel l;
     JLabel ll;
@@ -28,6 +30,7 @@ public class CustomerWindow1 {
     JComboBox cokeSizeCB;
 
     public CustomerWindow1(){
+        super();
         frame.setTitle("Customer Window");
         frame.setBounds(50, 50, 500, 500);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -97,6 +100,20 @@ public class CustomerWindow1 {
 
         frame.setTitle("Customer Order");
         frame.setVisible(true);
+
+        burgersCB.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                getBurgersList();
+            }
+        });
+    }
+
+    public void getBurgersList(){
+        List<Item> itemList = controller.getItems();
+        for(int i =0;i<itemList.size();i++){
+            burgersCB.addItem(itemList.get(i).getItemName());
+        }
     }
 
     public JButton getBuyButton() {
@@ -131,4 +148,15 @@ public class CustomerWindow1 {
         this.cokeSizeCB = cokeSizeCB;
     }
 
+    @Override
+    public void onItemsChanged(List<Item> items) {
+        toChangeComboBOX(burgersCB,items);
+    }
+
+    private void toChangeComboBOX(JComboBox comboBox, List<Item> items){
+        comboBox.removeAllItems();
+        for (int i = 0; i < items.size(); i++) {
+            comboBox.addItem(items.get(i));
+        }
+    }
 }

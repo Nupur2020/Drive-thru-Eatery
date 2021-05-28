@@ -27,7 +27,7 @@ public class MysqlCon {
         System.out.println("Connection Created");
     }
 
-    public void insertItemInAdminWindow1(AdminWindow1 view) {
+    /*public void insertItemInAdminWindow1(AdminWindow1 view) {
         try {
 
             String query = " insert into items (ItemName, Price, Visibility, Offers, Type)"
@@ -48,7 +48,7 @@ public class MysqlCon {
         } catch (Exception s) {
             System.out.println(s);
         }
-    }
+    }*/
 
 
 

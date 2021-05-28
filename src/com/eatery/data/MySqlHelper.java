@@ -30,7 +30,7 @@ public class MySqlHelper implements DBHelper {
         try {
 
             String query = "INSERT INTO items (ItemName, Price, Visibility, Offers, Type)"
-                    + " values (?, ?, ?, ?, ?, ?)";
+                    + " values (?, ?, ?, ?, ?)";
 
             // create the mysql insert prepared statement
             PreparedStatement preparedStmt = con.prepareStatement(query);
@@ -55,7 +55,7 @@ public class MySqlHelper implements DBHelper {
     public Item getItem(int itemId) throws SQLException {
         Item item = null;
         try {
-            String query = "SELECT * FROM ITEMS WHERE ITEMID = ?";
+            String query = "SELECT * FROM items WHERE ITEMID = ?";
 
             // create the mysql insert prepared statement
             PreparedStatement preparedStmt = con.prepareStatement(query);
@@ -149,7 +149,7 @@ public class MySqlHelper implements DBHelper {
     public boolean updateItem(Item item) throws SQLException {
         int rowAffected = -1;
         try {
-            String query = "UPDATE ITEMS" + "SET ItemName = ?" + "SET Price = ?" + "SET Visibility = ?" + "SET Offers = ?" + "Set Type =?" + "WHERE ItemId = ?";
+            String query = "UPDATE items" + " SET ItemName = ?," + " Price = ?," + " Visibility = ?," + " Offers = ?," + " Type =?" + " WHERE ItemId = ?;";
 
             PreparedStatement preparedStmt = con.prepareStatement(query);
             preparedStmt.setString(1, item.getItemName());
@@ -158,6 +158,8 @@ public class MySqlHelper implements DBHelper {
             preparedStmt.setInt(4, item.getOffers());
             preparedStmt.setString(5, item.getType());
             preparedStmt.setInt(6,item.getItemId());
+            String printQuery = preparedStmt.toString();
+            System.out.println(printQuery);
 
             rowAffected = preparedStmt.executeUpdate();
 

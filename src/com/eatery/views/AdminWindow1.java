@@ -1,13 +1,17 @@
 package com.eatery.views;
 
-import com.eatery.data.MysqlCon;
+import com.eatery.controllers.IController;
+import com.eatery.models.*;
 
 import javax.swing.*;
 import javax.swing.JTextField;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
-public class AdminWindow1 {
-
+public class AdminWindow1 extends View {
     JFrame frame = new JFrame();
 
     private JButton addFoodItemButton;
@@ -18,8 +22,8 @@ public class AdminWindow1 {
     JLabel changePrice = new JLabel();
     JLabel changeOffers = new JLabel();
 
-    JTextField itemTextField = new JTextField();
-    JTextField setPriceTextField = new JTextField();
+    //JTextField itemTextField = new JTextField();
+    //JTextField setPriceTextField = new JTextField();
     JTextField changePriceTextField = new JTextField();
     JTextField changeOfferTextField = new JTextField();
 
@@ -27,11 +31,11 @@ public class AdminWindow1 {
     private JComboBox itemsCBPrice;
     private JComboBox itemsCBOffer;
 
+    private ArrayList<Item> items;
 
-
-
-
-    public AdminWindow1() {
+    public AdminWindow1(IController controller) {
+        super(controller);
+        items = (ArrayList<Item>) controller.getItems();
 
         frame.setTitle("Admin Account");
         frame.setBounds(50, 50, 500, 300);
@@ -44,11 +48,11 @@ public class AdminWindow1 {
         frame.add(addFoodItem);
 
 
-        itemTextField.setBounds(120, 30, 89, 23);
+        /*itemTextField.setBounds(120, 30, 89, 23);
         frame.getContentPane().add(itemTextField);
 
         setPriceTextField.setBounds(220, 30, 89, 23);
-        frame.getContentPane().add(setPriceTextField);
+        frame.getContentPane().add(setPriceTextField);*/
 
         addFoodItemButton = new JButton("AddButton");
         addFoodItemButton.setBounds(320, 30, 120, 23);
@@ -63,6 +67,7 @@ public class AdminWindow1 {
         itemsCBPrice.setBounds(120, 100, 89, 23);// change the bounds
         frame.add(itemsCBPrice);
         itemsCBPrice.setVisible(true);
+        addItems(itemsCBPrice);
 
         changePriceTextField.setBounds(220, 100, 89, 23);
         frame.getContentPane().add(changePriceTextField);
@@ -77,10 +82,10 @@ public class AdminWindow1 {
         frame.add(changeOffers);
 
         itemsCBOffer = new JComboBox();
-
         itemsCBOffer.setBounds(120, 170, 89, 23);// change the bounds
         frame.add(itemsCBOffer);
         itemsCBOffer.setVisible(true);
+        addItems(itemsCBOffer);
 
 
         frame.setVisible(true);
@@ -92,21 +97,70 @@ public class AdminWindow1 {
         offerUpdateButton.setBounds(320, 170, 120, 23);
         frame.add(offerUpdateButton);
 
+        addFoodItemButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                onAddClicked();
+            }
+        });
+
+        priceUpdateButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    onPriceUpdateClicked();
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
+            }
+        });
+
+        offerUpdateButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    onOfferUpdateClicked();
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
+            }
+        });
 
     }
 
-    public JTextField getItemTextField() {
-        return itemTextField;
+    public void addItems(JComboBox comboBox){
+        for(int i =0;i<items.size();i++){
+            comboBox.addItem(items.get(i).getItemName());
+        }
     }
 
-    public JTextField getSetPriceTextField(){ return setPriceTextField;}
+    private void onAddClicked(){
+        System.out.println("Clicked add button..........");
+        AddItemWindow addItemWindow = new AddItemWindow(controller);
+
+    }
+
+    private void onPriceUpdateClicked() throws SQLException {
+        int newPrice = Integer.parseInt(changePriceTextField.getText());
+        int indexCB =  itemsCBPrice.getSelectedIndex();
+        Item item = items.get(indexCB);
+        item.setPrice(newPrice);
+        System.out.println("Item contents");
+        controller.onUpdateClicked(item);
+    }
+
+    private void onOfferUpdateClicked() throws SQLException {
+        int newOffer = Integer.parseInt(changeOfferTextField.getText());
+        int indexCB =  itemsCBOffer.getSelectedIndex();
+        Item item = items.get(indexCB);
+        item.setOffers(newOffer);
+        controller.onUpdateClicked(item);
+    }
+
 
     public JTextField getChangePriceTextField(){ return changePriceTextField;}
 
     public JTextField getChangeOfferTextField(){ return changeOfferTextField;}
-
-
-
 
     public JButton getAddFoodItemButton() {
         return this.addFoodItemButton;
@@ -129,6 +183,16 @@ public class AdminWindow1 {
     }
 
 
+    @Override
+    public void onItemsChanged(List<Item> items) {
+        toChangeComboBOX(itemsCBPrice,items);
+        toChangeComboBOX(itemsCBOffer,items);
+    }
 
-
+    private void toChangeComboBOX(JComboBox comboBox, List<Item> items){
+        comboBox.removeAllItems();
+        for (int i = 0; i < items.size(); i++) {
+            comboBox.addItem(items.get(i));
+        }
+    }
 }
