@@ -1,11 +1,13 @@
 package com.eatery.views;
 
+import com.eatery.controllers.IController;
 import com.eatery.data.MysqlCon;
-import com.eatery.models.Item;
+import com.eatery.models.*;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,24 +15,42 @@ public class CustomerWindow1 extends View {
     static JFrame frame = new JFrame();
     JLabel l;
     JLabel ll;
+    String addOnName;
 
     JLabel burgerorder;
-    JLabel friesorder;
-    JLabel cokeorder;
+    JLabel addOnsorder;
+ //   JLabel iceCreamorder;
+     Item burger;
 
     JLabel burgersLabel;
     JLabel addonsLabel;
-    JLabel friesLabel;
-    JLabel cokeLabel;
+
+    JLabel iceCreamLabel;
+    JLabel totalOrder;
 
     JButton buyButton;
+    JButton  calculatePriceButton;
 
     JComboBox burgersCB;
-    JComboBox toppingsCB;
-    JComboBox cokeSizeCB;
 
-    public CustomerWindow1(){
-        super();
+    JComboBox addOnsCB;
+    JComboBox iceCreamCB;
+    private ArrayList<Item> items = new ArrayList<Item>() ;
+    private ArrayList<Item> allItems;
+    private int price;
+    private int totalPrice;
+
+    public CustomerWindow1(IController controller) {
+        super(controller);
+
+        allItems = (ArrayList<Item>) controller.getItems();
+        for (int i = 0; i < allItems.size(); i++) {
+            if (allItems.get(i).getVisibility() == true) {
+                items.add(allItems.get(i));
+            }
+
+        }
+
         frame.setTitle("Customer Window");
         frame.setBounds(50, 50, 500, 500);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -38,81 +58,147 @@ public class CustomerWindow1 extends View {
 
         l = new JLabel("label1");
         l.setText("CHOOSE AND PAY");
-        l.setBounds(30,50, 150,50);
+        l.setBounds(30, 50, 150, 50);
         frame.add(l);
 
         ll = new JLabel("label2");
         ll.setText("YOUR ORDER");
-        ll.setBounds(320,50, 150,50);
+        ll.setBounds(320, 50, 150, 50);
         frame.add(ll);
 
         burgerorder = new JLabel();
-        burgerorder.setBounds(320,80, 150,50);
+        burgerorder.setBounds(320, 80, 150, 50);
         frame.add(burgerorder);
 
-        friesorder = new JLabel();
-        friesorder.setBounds(320,150, 150,50);
-        frame.add(friesorder);
+        addOnsorder = new JLabel();
+        addOnsorder.setBounds(320, 100, 150, 50);
+        frame.add(addOnsorder);
 
-        cokeorder = new JLabel();
-        cokeorder.setBounds(320,230, 150,50);
-        frame.add(cokeorder);
+        /*iceCreamorder = new JLabel();
+        iceCreamorder.setBounds(320, 120, 150, 50);
+        frame.add(iceCreamorder);*/
+
+        totalOrder = new JLabel("Total Price");
+        totalOrder.setBounds(320, 150, 150, 50);
+
+        frame.add(totalOrder);
 
         burgersLabel = new JLabel("Burgers");
         burgersLabel.setBounds(20, 100, 89, 23);
         frame.add(burgersLabel);
 
         addonsLabel = new JLabel("ADD ON'S");
-        addonsLabel.setBounds(30,170,150,50);
+        addonsLabel.setBounds(30, 170, 150, 50);
         frame.add(addonsLabel);
 
-        friesLabel = new JLabel("Fries");
-        friesLabel.setBounds(20,240,89,23);
-        frame.add(friesLabel);
+        addonsLabel = new JLabel("Choose:");
+        addonsLabel.setBounds(20, 240, 89, 23);
+        frame.add(addonsLabel);
 
-        cokeLabel = new JLabel("Coke");
-        cokeLabel.setBounds(20,310,89,23);
-        frame.add(cokeLabel);
+
+        calculatePriceButton = new JButton("Calculate Price");
+        //buyButton.addActionListener(BuyListener);
+        calculatePriceButton.setBounds(60, 320, 150, 23);
+        frame.add(calculatePriceButton);
 
         buyButton = new JButton("BUY");
         //buyButton.addActionListener(BuyListener);
-        buyButton.setBounds(60,380,150,23);
+        buyButton.setBounds(60, 380, 150, 23);
         frame.add(buyButton);
 
         //String[] itemsArray = (String[]) list.toArray(new String[0]);
         burgersCB = new JComboBox();
-        burgersCB.setBounds(120,100,89,23);
+        burgersCB.setBounds(120, 100, 120, 23);
         frame.add(burgersCB);
         burgersCB.setVisible(true);
+        addItems(burgersCB);
 
-        String [] toppingsArray = {"Cheese Topping :  $5", "Caramel Topping : $3"};
-        toppingsCB = new JComboBox(toppingsArray);
-        toppingsCB.setBounds(120,240,89,23);
-        frame.add(toppingsCB);
-        toppingsCB.setVisible(true);
+        String[] addOnsArray = {"ChocoChip: $5", "BlueBerry: $3","Butterscotch: $4", "Mint: $6"};
+        addOnsCB = new JComboBox(addOnsArray);
+        addOnsCB.setBounds(120, 240, 120, 23);
+        frame.add(addOnsCB);
+        addOnsCB.setVisible(true);
 
-        String [] cokeSizeArray = {"Small Coke : $4", "Large Coke : $ 6"};
-        cokeSizeCB = new JComboBox(cokeSizeArray);
-        cokeSizeCB.setBounds(120,310,89,23);
-        frame.add(cokeSizeCB);
-        cokeSizeCB.setVisible(true);
 
 
         frame.setTitle("Customer Order");
         frame.setVisible(true);
 
+
         burgersCB.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                getBurgersList();
+
+                int indexCB =  burgersCB.getSelectedIndex();
+                Item item = items.get(indexCB);
+
+                String itemName = item.getItemName();
+                int itemPrice = item.getPrice();
+                burgerorder.setText(itemName+" : $"+itemPrice);
+                burger = new BurgerBuilder(itemName,itemPrice).setVisibility(item.getVisibility()).setOffers(item.getOffers()).build();
             }
         });
+
+        calculatePriceButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                 totalPrice = calculateTotalPrice(addOnName);
+                 System.out.println(totalPrice);
+                totalOrder.setText("Total Price  :"+totalPrice);
+            }
+        });
+
+        addOnsCB.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                int indexCB =  addOnsCB.getSelectedIndex();
+                addOnsorder.setText(String.valueOf(addOnsArray[indexCB]));
+                String[] choices =addOnsArray[indexCB].split(":");
+                addOnName = choices[0];
+
+
+            }
+        });
+        buyButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                PaymentWindow paymentWindow = new PaymentWindow(controller);
+            }
+        });
+
+
+
+    }
+    public int calculateTotalPrice(String addOnName){
+
+        if(addOnName.equalsIgnoreCase("ChocoChip")){
+            ChocoChipDecorator chocoChipDecorator = new ChocoChipDecorator(burger);
+            price = chocoChipDecorator.getTotalPrice();
+        } else if(addOnName.equalsIgnoreCase("BlueBerry")){
+            BlueBerryDecorator blueBerryDecorator = new BlueBerryDecorator(burger);
+            price = blueBerryDecorator.getTotalPrice();
+        } else if(addOnName.equalsIgnoreCase("Butterscotch")){
+            ButterscotchDecorator butterscotchDecorator = new ButterscotchDecorator(burger);
+            price = butterscotchDecorator.getTotalPrice();
+        } else if(addOnName.equalsIgnoreCase("Mint")){
+            MintDecorator mintDecorator = new MintDecorator(burger);
+            price = mintDecorator.getTotalPrice();
+        }else{
+            price = burger.getTotalPrice();
+        }
+        return price;
     }
 
-    public void getBurgersList(){
-        List<Item> itemList = controller.getItems();
-        for(int i =0;i<itemList.size();i++){
-            burgersCB.addItem(itemList.get(i).getItemName());
+
+
+    public void addItems(JComboBox comboBox){
+        for(int i =0;i<items.size();i++){
+            if(items.get(i).getVisibility() == true) {
+                comboBox.addItem(items.get(i).getItemName());
+            }
         }
     }
 
@@ -132,21 +218,9 @@ public class CustomerWindow1 extends View {
         this.burgersCB = burgersCB;
     }
 
-    public JComboBox getToppingsCB() {
-        return toppingsCB;
-    }
 
-    public void setToppingsCB(JComboBox toppingsCB) {
-        this.toppingsCB = toppingsCB;
-    }
 
-    public JComboBox getCokeSizeCB() {
-        return cokeSizeCB;
-    }
 
-    public void setCokeSizeCB(JComboBox cokeSizeCB) {
-        this.cokeSizeCB = cokeSizeCB;
-    }
 
     @Override
     public void onItemsChanged(List<Item> items) {

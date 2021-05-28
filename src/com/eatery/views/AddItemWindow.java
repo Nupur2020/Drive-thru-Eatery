@@ -33,7 +33,7 @@ public class AddItemWindow  extends View {
 
         frame.setTitle("Admin Account");
         frame.setBounds(50, 50, 500, 300);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+      //  frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.getContentPane().setLayout(null);
 
         addItemNameLabel.setBounds(20, 30, 100, 23);

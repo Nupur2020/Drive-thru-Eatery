@@ -22,8 +22,7 @@ public class AdminWindow1 extends View {
     JLabel changePrice = new JLabel();
     JLabel changeOffers = new JLabel();
 
-    //JTextField itemTextField = new JTextField();
-    //JTextField setPriceTextField = new JTextField();
+
     JTextField changePriceTextField = new JTextField();
     JTextField changeOfferTextField = new JTextField();
 
@@ -35,7 +34,9 @@ public class AdminWindow1 extends View {
 
     public AdminWindow1(IController controller) {
         super(controller);
+        controller.subscribe(this);
         items = (ArrayList<Item>) controller.getItems();
+
 
         frame.setTitle("Admin Account");
         frame.setBounds(50, 50, 500, 300);
@@ -135,7 +136,7 @@ public class AdminWindow1 extends View {
     }
 
     private void onAddClicked(){
-        System.out.println("Clicked add button..........");
+
         AddItemWindow addItemWindow = new AddItemWindow(controller);
 
     }
@@ -145,7 +146,6 @@ public class AdminWindow1 extends View {
         int indexCB =  itemsCBPrice.getSelectedIndex();
         Item item = items.get(indexCB);
         item.setPrice(newPrice);
-        System.out.println("Item contents");
         controller.onUpdateClicked(item);
     }
 
@@ -192,7 +192,7 @@ public class AdminWindow1 extends View {
     private void toChangeComboBOX(JComboBox comboBox, List<Item> items){
         comboBox.removeAllItems();
         for (int i = 0; i < items.size(); i++) {
-            comboBox.addItem(items.get(i));
+            comboBox.addItem(items.get(i).getItemName());
         }
     }
 }

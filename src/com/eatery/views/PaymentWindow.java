@@ -1,10 +1,15 @@
 package com.eatery.views;
 
+import com.eatery.controllers.IController;
 import com.eatery.data.MysqlCon;
+import com.eatery.models.Item;
 
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.List;
 
-public class PaymentWindow {
+public class PaymentWindow extends View{
     JFrame billingFrame = new JFrame();
     JButton payButton;
 
@@ -22,7 +27,7 @@ public class PaymentWindow {
     JTextField creditCardCVVTextField;
 
 
-    public PaymentWindow(){
+    public PaymentWindow(IController controller){
         billingFrame.setTitle("Payment Window");
         billingFrame.setBounds(50, 50, 500, 300);
         billingFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -55,12 +60,12 @@ public class PaymentWindow {
 
         successMessage =new JLabel();
         successMessage.setBounds(20, 200, 300, 23);
-        successMessage.setText("Payment Successful. Enjoy your meal!!");
+
         billingFrame.add(successMessage);
 
         failureMessage =new JLabel();
         failureMessage.setBounds(20, 220, 300, 23);
-        failureMessage.setText("Payment failed.Please try again.");
+
         billingFrame.add(failureMessage);
 
         creditCardNumTextField = new JTextField();
@@ -88,6 +93,28 @@ public class PaymentWindow {
 
         billingFrame.setVisible(true);
         CustomerWindow1.frame.setVisible(false);
+
+        payButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                String cardNum = creditCardNumTextField.getText();
+                String cardName = creditCardNameTextField.getText();
+                String cardExpiry = creditCardExpiryTextField.getText();
+                String cardCVV = creditCardCVVTextField.getText();
+                if (cardNum.matches("[0-9]+") && cardNum.length() == 16 && cardName.matches("^[a-zA-Z]([-']?[a-zA-Z]+)*( [a-zA-Z]([-']?[a-zA-Z]+)*)+$") && cardCVV.matches("[0-9]+") && cardCVV.length() == 3 &&
+                cardExpiry.matches("\\d{2}/\\d{2}")){
+                    successMessage.setText("Payment Successful. Enjoy your meal!!");
+                }else
+                {
+                    failureMessage.setText("Payment failed.Please try again.");
+                }
+
+            }
+        });
+
+
+
     }
 
 
@@ -131,4 +158,8 @@ public class PaymentWindow {
         this.creditCardCVVTextField = creditCardCVVTextField;
     }
 
+    @Override
+    public void onItemsChanged(List<Item> items) {
+
+    }
 }

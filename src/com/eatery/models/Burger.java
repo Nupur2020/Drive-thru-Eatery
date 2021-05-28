@@ -10,7 +10,9 @@ public class Burger extends Item {
 
     @Override
     public int getTotalPrice() {
-        return this.price - this.offers;
+        int subtract = (offers/100) * (price);
+        price = price - subtract;
+        return price;
     }
 
 }

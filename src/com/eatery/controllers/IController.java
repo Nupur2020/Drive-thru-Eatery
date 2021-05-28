@@ -21,4 +21,6 @@ public interface IController {
     public void subscribe(ItemChangedListener listener);
 
     public void notifyDataChanged(List<Item> newItems);
+
+    public void startApplication();
 }

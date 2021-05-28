@@ -1,13 +1,19 @@
 package com.eatery.views;
 
+import com.eatery.controllers.IController;
+import com.eatery.models.Item;
+
 import javax.swing.*;
 
 
 import javax.swing.JButton;
         import javax.swing.JFrame;
         import javax.swing.JOptionPane;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.List;
 
-public class FirstWindow {
+public class FirstWindow extends View {
     static public JFrame parent = new JFrame();
     JLabel welcomeMessage;
 
@@ -23,7 +29,8 @@ public class FirstWindow {
 
 
 
-    public FirstWindow(){
+    public FirstWindow(IController controller){
+        super(controller);
         welcomeMessage = new JLabel();
         welcomeMessage.setBounds(100,50,300,100);
         welcomeMessage.setText("***WELCOME TO THE CAFE***");
@@ -37,34 +44,21 @@ public class FirstWindow {
         parent.add(startButton);
         parent.setSize(400,400);
         parent.setVisible(true);
-    }
 
-
-
-
-        /*button.addActionListener(new java.awt.event.ActionListener() {
+        startButton.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                //String name = JOptionPane.showInputDialog(parent,
-                //  "Choose Account type", null);
-
-                String[] options = {"Administrator", "Customer"};
-                int opt = JOptionPane.showOptionDialog(parent,
-                        "Choose Account type",
-                        "Accounts",
-                        JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
-
-                System.out.println("opt"+opt);
-
-                if(opt == 1){
-                    //CustomerWindow.main();
-                    parent.setVisible(false);
-                }
-
-
+            public void actionPerformed(ActionEvent e) {
+                controller.startApplication();
             }
-        });*/
+        });
     }
+
+
+    @Override
+    public void onItemsChanged(List<Item> items) {
+
+    }
+}
 
 
 

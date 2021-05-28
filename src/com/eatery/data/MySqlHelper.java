@@ -13,7 +13,7 @@ public class MySqlHelper implements DBHelper {
     private MySqlHelper() throws ClassNotFoundException, SQLException {
         Class.forName("com.mysql.cj.jdbc.Driver");
         con = DriverManager.getConnection(
-                "jdbc:mysql://localhost:3306/drive_thru", "root", "password");
+                "jdbc:mysql://localhost:3306/drive_thru", "root", "mysql95");
     }
 
     //Singleton Pattern
@@ -44,9 +44,9 @@ public class MySqlHelper implements DBHelper {
             itemIdCount = preparedStmt.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
-        } finally {
-            con.close();
-        }
+        } //finally {
+           // con.close();
+        //}
 
         return itemIdCount;
     }
@@ -158,8 +158,7 @@ public class MySqlHelper implements DBHelper {
             preparedStmt.setInt(4, item.getOffers());
             preparedStmt.setString(5, item.getType());
             preparedStmt.setInt(6,item.getItemId());
-            String printQuery = preparedStmt.toString();
-            System.out.println(printQuery);
+
 
             rowAffected = preparedStmt.executeUpdate();
 
