@@ -1,17 +1,11 @@
 import com.eatery.controllers.Controller;
 import com.eatery.data.MySqlHelper;
-import com.eatery.data.MysqlCon;
-import com.eatery.models.Burger;
 import com.eatery.models.Item;
-import com.eatery.views.AdminWindow1;
-import com.eatery.views.CustomerWindow1;
 import com.eatery.views.FirstWindow;
-import com.eatery.views.PaymentWindow;
 
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 
 public class App {
 

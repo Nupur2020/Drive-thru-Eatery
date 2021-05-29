@@ -1,281 +1,238 @@
-/*
 package com.eatery.views;
 
+import com.eatery.controllers.IController;
 import com.eatery.data.MysqlCon;
+import com.eatery.models.*;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
-        import java.awt.event.ActionListener;
-        import java.awt.event.MouseAdapter;
-        import java.awt.event.MouseEvent;
-import java.lang.reflect.Array;
+import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
-public class CustomerWindow {
-    public static void main(String[] args) {
-        MysqlCon mysqlCon;
+public class CustomerWindow extends View {
+    static JFrame frame = new JFrame();
+    JLabel l;
+    JLabel ll;
+    String addOnName;
 
+    JLabel burgerorder;
+    JLabel addOnsorder;
+ //   JLabel iceCreamorder;
+     Item burger;
 
-        JFrame frame = new JFrame();
-        frame.setTitle("Customer Menu");
+    JLabel burgersLabel;
+    JLabel addonsLabel;
 
-        JLabel l;
-        l = new JLabel("label1");
-        l.setText("CHOOSE AND PAY");
-        l.setBounds(30,50, 150,50);
-        frame.add(l);
+    JLabel iceCreamLabel;
+    JLabel totalOrder;
 
-        JLabel ll;
-        ll = new JLabel("label2");
-        ll.setText("YOUR ORDER");
-        ll.setBounds(320,50, 150,50);
-        frame.add(ll);
+    JButton buyButton;
+    JButton  calculatePriceButton;
 
-        JLabel burgerorder;
-        burgerorder = new JLabel();
-        burgerorder.setBounds(320,80, 150,50);
-        frame.add(burgerorder);
+    JComboBox burgersCB;
 
-        JLabel friesorder;
-        friesorder = new JLabel();
-        friesorder.setBounds(320,150, 150,50);
-        frame.add(friesorder);
+    JComboBox addOnsCB;
+    JComboBox iceCreamCB;
+    private ArrayList<Item> items = new ArrayList<Item>() ;
+    private ArrayList<Item> allItems;
+    private double price;
+    private double totalPrice;
 
-        JLabel cokeorder;
-        cokeorder = new JLabel();
-        cokeorder.setBounds(320,230, 150,50);
-        frame.add(cokeorder);
+    public CustomerWindow(IController controller) {
+        super(controller);
 
+        allItems = (ArrayList<Item>) controller.getItems();
+        for (int i = 0; i < allItems.size(); i++) {
+            if (allItems.get(i).getVisibility() == true) {
+                items.add(allItems.get(i));
+            }
 
+        }
 
+        frame.setTitle("Customer Window");
         frame.setBounds(50, 50, 500, 500);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.getContentPane().setLayout(null);
 
-        JLabel burgersLabel = new JLabel("Burgers");
+        l = new JLabel("label1");
+        l.setText("CHOOSE AND PAY");
+        l.setBounds(30, 50, 150, 50);
+        frame.add(l);
+
+        ll = new JLabel("label2");
+        ll.setText("YOUR ORDER");
+        ll.setBounds(320, 50, 150, 50);
+        frame.add(ll);
+
+        burgerorder = new JLabel();
+        burgerorder.setBounds(320, 80, 150, 50);
+        frame.add(burgerorder);
+
+        addOnsorder = new JLabel();
+        addOnsorder.setBounds(320, 100, 150, 50);
+        frame.add(addOnsorder);
+
+        /*iceCreamorder = new JLabel();
+        iceCreamorder.setBounds(320, 120, 150, 50);
+        frame.add(iceCreamorder);*/
+
+        totalOrder = new JLabel("Total Price");
+        totalOrder.setBounds(320, 150, 150, 50);
+
+        frame.add(totalOrder);
+
+        burgersLabel = new JLabel("Burgers");
         burgersLabel.setBounds(20, 100, 89, 23);
         frame.add(burgersLabel);
 
-        JLabel addonsLabel = new JLabel("ADD ON'S");
-        addonsLabel.setBounds(30,170,150,50);
+        addonsLabel = new JLabel("ADD ON'S");
+        addonsLabel.setBounds(30, 170, 150, 50);
         frame.add(addonsLabel);
 
-        JLabel friesLabel = new JLabel("Fries");
-        friesLabel.setBounds(20,240,89,23);
-        frame.add(friesLabel);
-
-        JLabel cokeLabel = new JLabel("Coke");
-        cokeLabel.setBounds(20,310,89,23);
-        frame.add(cokeLabel);
+        addonsLabel = new JLabel("Choose:");
+        addonsLabel.setBounds(20, 240, 89, 23);
+        frame.add(addonsLabel);
 
 
+        calculatePriceButton = new JButton("Calculate Price");
+        //buyButton.addActionListener(BuyListener);
+        calculatePriceButton.setBounds(60, 320, 150, 23);
+        frame.add(calculatePriceButton);
 
-        ActionListener BuyListener = new ActionListener() {
-            public void actionPerformed(ActionEvent event) {
-
-                JFrame billingFrame = new JFrame();
-
-                billingFrame.setSize(300,300);
-                billingFrame.setTitle("Success");
-                JLabel thankyouMessage = new JLabel();
-                thankyouMessage.setBounds(150,100,10,20);
-                thankyouMessage.setText("       Payment Succesful. Enjoy your meal!!");
-
-                billingFrame.add(thankyouMessage);
-
-                billingFrame.setVisible(true);
-                frame.setVisible(false);
-
-            }
-        };
-
-        JButton buyButton = new JButton("BUY");
-        buyButton.addActionListener(BuyListener);
-        buyButton.setBounds(60,380,150,23);
+        buyButton = new JButton("BUY");
+        //buyButton.addActionListener(BuyListener);
+        buyButton.setBounds(60, 380, 150, 23);
         frame.add(buyButton);
+
+        //String[] itemsArray = (String[]) list.toArray(new String[0]);
+        burgersCB = new JComboBox();
+        burgersCB.setBounds(120, 100, 120, 23);
+        frame.add(burgersCB);
+        burgersCB.setVisible(true);
+        addItems(burgersCB);
+
+        String[] addOnsArray = {"ChocoChip: $5", "BlueBerry: $3","Butterscotch: $4", "Mint: $6"};
+        addOnsCB = new JComboBox(addOnsArray);
+        addOnsCB.setBounds(120, 240, 120, 23);
+        frame.add(addOnsCB);
+        addOnsCB.setVisible(true);
+
+
 
         frame.setTitle("Customer Order");
         frame.setVisible(true);
 
 
+        burgersCB.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
 
-        */
-/*class AddInterestListener implements ActionListener {
-            public void actionPerformed(ActionEvent event) {
-                System.out.println("hello, I was pressed");
-            }
-        }*//*
+                int indexCB =  burgersCB.getSelectedIndex();
+                Item item = items.get(indexCB);
 
+                String itemName = item.getItemName();
+                double itemPrice = item.getPrice();
+                int itemOffer = item.getOffers();
 
-        //ArrayList list = mysqlcon.getItemsList();
-        String[] itemsArray = (String[]) list.toArray(new String[0]);
-        JComboBox burgersCB = new JComboBox(itemsArray);
-        burgersCB.setBounds(120,100,89,23);
-        frame.add(burgersCB);
-        burgersCB.setVisible(true);
-
-        String [] toppingsArray = {"Cheese Topping :  $5", "Caramel Topping : $3"};
-        JComboBox toppingsCB = new JComboBox(toppingsArray);
-        toppingsCB.setBounds(120,240,89,23);
-        frame.add(toppingsCB);
-        toppingsCB.setVisible(true);
-
-        String [] cokeSizeArray = {"Small Coke : $4", "Large Coke : $ 6"};
-        JComboBox cokeSizeCB = new JComboBox(cokeSizeArray);
-        cokeSizeCB.setBounds(120,310,89,23);
-        frame.add(cokeSizeCB);
-        cokeSizeCB.setVisible(true);
-
-        */
-/*ActionListener listener = new AddInterestListener();
-        burgersButton.addActionListener(listener);*//*
-
-
-
-        */
-/*JButton btnClickMe = new JButton("Item");
-        btnClickMe.setBounds(120, 100, 89, 23);
-        frame.getContentPane().add(btnClickMe);
-
-        final JPopupMenu menu = new JPopupMenu();
-
-
-
-        ActionListener menuListener = new ActionListener() {
-            public void actionPerformed(ActionEvent event) {
-                System.out.println("Popup menu item ["
-                        + event.getActionCommand() + "] was pressed.");
-                burgerorder.setText(event.getActionCommand());
-            }
-        };
-
-
-        JMenuItem item1 = new JMenuItem("CheeseBurger"+" "+"$2.99");
-        item1.addActionListener(menuListener);
-        JMenuItem item2 = new JMenuItem("HamBurger" +" $3.99");
-        item2.addActionListener(menuListener);
-        JMenuItem item3 = new JMenuItem("VeggieBurger"+" $4.99");
-        item3.addActionListener(menuListener);
-
-
-
-        menu.add(item1);
-        menu.add(item2);
-        menu.add(item3);
-
-        btnClickMe.addMouseListener(new MouseAdapter() {
-            public void mouseReleased(MouseEvent e) {
-                if (e.getButton() == 1) {
-                    //order.setText("Cheese");// 1-left, 2-middle, 3-right button
-                    menu.show(e.getComponent(), e.getX(), e.getY());
-                }
+                burger = new BurgerBuilder(itemName,itemPrice).setVisibility(item.getVisibility()).setOffers(item.getOffers()).build();
+                burgerorder.setText(itemName+" : $"+burger.getTotalPrice());
             }
         });
-        frame.add(menu);
-*//*
 
+        calculatePriceButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
 
-     //   ====
-        JButton btntoppingclick = new JButton("Topping");
-        btntoppingclick.setBounds(120,170,89,23);
-        frame.getContentPane().add(btntoppingclick);
-
-        final JPopupMenu topping = new JPopupMenu();
-
-        ActionListener friesListener = new ActionListener() {
-            public void actionPerformed(ActionEvent event) {
-                System.out.println("Popup menu item ["
-                        + event.getActionCommand() + "] was pressed.");
-                friesorder.setText(event.getActionCommand());
-            }
-        };
-
-        JMenuItem topping1 = new JMenuItem("Cheese"+" :$5");
-        topping1.addActionListener(friesListener);
-        JMenuItem topping2 = new JMenuItem("Caramel"+" :$3");
-        topping2.addActionListener(friesListener);
-       // JMenuItem price3 = new JMenuItem("$7");
-
-
-
-
-        topping.add(topping1);
-        topping.add(topping2);
-       // price.add(price3);
-
-        btntoppingclick.addMouseListener(new MouseAdapter() {
-            public void mouseReleased(MouseEvent e) {
-                if (e.getButton() == 1) { // 1-left, 2-middle, 3-right button
-                    topping.show(e.getComponent(), e.getX(), e.getY());
-                }
+                 totalPrice = calculateTotalPrice(addOnName);
+                 System.out.println(totalPrice);
+                totalOrder.setText("Total Price  :"+totalPrice);
             }
         });
-        frame.add(topping);
+
+        addOnsCB.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                int indexCB =  addOnsCB.getSelectedIndex();
+                addOnsorder.setText(String.valueOf(addOnsArray[indexCB]));
+                String[] choices =addOnsArray[indexCB].split(":");
+                addOnName = choices[0];
 
 
-        JButton btncokeclick = new JButton("Size");
-        btncokeclick.setBounds(120,240,89,23);
-        frame.getContentPane().add(btncokeclick);
-
-        final JPopupMenu coke = new JPopupMenu();
-
-
-        ActionListener cokeListener = new ActionListener() {
-            public void actionPerformed(ActionEvent event) {
-                System.out.println("Popup menu item ["
-                        + event.getActionCommand() + "] was pressed.");
-                cokeorder.setText(event.getActionCommand());
-            }
-        };
-
-
-        JMenuItem coke1 = new JMenuItem("Small" +" :$5");
-        coke1.addActionListener(cokeListener);
-        JMenuItem coke2 = new JMenuItem("Large" +" :$9");
-        coke2.addActionListener(cokeListener);
-        // JMenuItem price3 = new JMenuItem("$7");
-
-        coke.add(coke1);
-        coke.add(coke2);
-        // price.add(price3);
-
-        btncokeclick.addMouseListener(new MouseAdapter() {
-            public void mouseReleased(MouseEvent e) {
-                if (e.getButton() == 1) { // 1-left, 2-middle, 3-right button
-                    coke.show(e.getComponent(), e.getX(), e.getY());
-                }
             }
         });
-        frame.add(coke);
+        buyButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
 
-
-
-       */
-/* JButton btnpriceclick = new JButton("Price");
-        btnpriceclick.setBounds(220,170,89,23);
-        frame.getContentPane().add(btnpriceclick);
-
-        final JPopupMenu topping = new JPopupMenu();
-
-        JMenuItem price1 = new JMenuItem("$5");
-        JMenuItem price2 = new JMenuItem("$3");
-        JMenuItem price3 = new JMenuItem("$7");
-
-        price.add(price1);
-        price.add(price2);
-        price.add(price3);
-
-        btnpriceclick.addMouseListener(new MouseAdapter() {
-            public void mouseReleased(MouseEvent e) {
-                if (e.getButton() == 1) { // 1-left, 2-middle, 3-right button
-                    price.show(e.getComponent(), e.getX(), e.getY());
-                }
+                PaymentWindow paymentWindow = new PaymentWindow(controller);
             }
         });
-        frame.add(price);*//*
 
 
 
-    }}
-*/
+    }
+    public double calculateTotalPrice(String addOnName){
+
+        if(addOnName.equalsIgnoreCase("ChocoChip")){
+            ChocoChipDecorator chocoChipDecorator = new ChocoChipDecorator(burger);
+            price = chocoChipDecorator.getTotalPrice();
+        } else if(addOnName.equalsIgnoreCase("BlueBerry")){
+            BlueBerryDecorator blueBerryDecorator = new BlueBerryDecorator(burger);
+            price = blueBerryDecorator.getTotalPrice();
+        } else if(addOnName.equalsIgnoreCase("Butterscotch")){
+            ButterscotchDecorator butterscotchDecorator = new ButterscotchDecorator(burger);
+            price = butterscotchDecorator.getTotalPrice();
+        } else if(addOnName.equalsIgnoreCase("Mint")){
+            MintDecorator mintDecorator = new MintDecorator(burger);
+            price = mintDecorator.getTotalPrice();
+        }else{
+            price = burger.getTotalPrice();
+        }
+        return price;
+    }
+
+
+
+    public void addItems(JComboBox comboBox){
+        for(int i =0;i<items.size();i++){
+            if(items.get(i).getVisibility() == true) {
+                comboBox.addItem(items.get(i).getItemName());
+            }
+        }
+    }
+
+    public JButton getBuyButton() {
+        return buyButton;
+    }
+
+    public void setBuyButton(JButton buyButton) {
+        this.buyButton = buyButton;
+    }
+
+    public JComboBox getBurgersCB() {
+        return burgersCB;
+    }
+
+    public void setBurgersCB(JComboBox burgersCB) {
+        this.burgersCB = burgersCB;
+    }
+
+
+
+
+
+    @Override
+    public void onItemsChanged(List<Item> items) {
+        toChangeComboBOX(burgersCB,items);
+    }
+
+    private void toChangeComboBOX(JComboBox comboBox, List<Item> items){
+        comboBox.removeAllItems();
+        for (int i = 0; i < items.size(); i++) {
+            comboBox.addItem(items.get(i));
+        }
+    }
+}

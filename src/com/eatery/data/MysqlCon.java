@@ -1,11 +1,10 @@
 package com.eatery.data;
 
-import com.eatery.controllers.Controller;
 import com.eatery.models.BurgerBuilder;
 import com.eatery.models.DrinksBuilder;
 import com.eatery.models.FriesBuilder;
 import com.eatery.models.Item;
-import com.eatery.views.AdminWindow1;
+import com.eatery.views.AdminWindow;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -52,7 +51,7 @@ public class MysqlCon {
 
 
 
-    public void updatePriceInAdminWindow1(AdminWindow1 view,String item) {
+    public void updatePriceInAdminWindow1(AdminWindow view, String item) {
         try {
 
             String query = " update items set Price = ? where ItemName= ?" ;
@@ -72,7 +71,7 @@ public class MysqlCon {
     }
 
 
-    public void updateOfferInAdminWindow1(AdminWindow1 view,String item) {
+    public void updateOfferInAdminWindow1(AdminWindow view, String item) {
         try {
 
             String query = " update items set Offers = ? where ItemName= ?" ;

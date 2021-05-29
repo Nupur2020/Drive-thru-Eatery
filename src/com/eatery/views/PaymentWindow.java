@@ -1,7 +1,6 @@
 package com.eatery.views;
 
 import com.eatery.controllers.IController;
-import com.eatery.data.MysqlCon;
 import com.eatery.models.Item;
 
 import javax.swing.*;
@@ -92,7 +91,7 @@ public class PaymentWindow extends View{
 
 
         billingFrame.setVisible(true);
-        CustomerWindow1.frame.setVisible(false);
+        CustomerWindow.frame.setVisible(false);
 
         payButton.addActionListener(new ActionListener() {
             @Override
