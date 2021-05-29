@@ -37,8 +37,8 @@ public class CustomerWindow1 extends View {
     JComboBox iceCreamCB;
     private ArrayList<Item> items = new ArrayList<Item>() ;
     private ArrayList<Item> allItems;
-    private int price;
-    private int totalPrice;
+    private double price;
+    private double totalPrice;
 
     public CustomerWindow1(IController controller) {
         super(controller);
@@ -133,9 +133,11 @@ public class CustomerWindow1 extends View {
                 Item item = items.get(indexCB);
 
                 String itemName = item.getItemName();
-                int itemPrice = item.getPrice();
-                burgerorder.setText(itemName+" : $"+itemPrice);
+                double itemPrice = item.getPrice();
+                int itemOffer = item.getOffers();
+
                 burger = new BurgerBuilder(itemName,itemPrice).setVisibility(item.getVisibility()).setOffers(item.getOffers()).build();
+                burgerorder.setText(itemName+" : $"+burger.getTotalPrice());
             }
         });
 
@@ -172,7 +174,7 @@ public class CustomerWindow1 extends View {
 
 
     }
-    public int calculateTotalPrice(String addOnName){
+    public double calculateTotalPrice(String addOnName){
 
         if(addOnName.equalsIgnoreCase("ChocoChip")){
             ChocoChipDecorator chocoChipDecorator = new ChocoChipDecorator(burger);

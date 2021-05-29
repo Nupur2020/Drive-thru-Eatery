@@ -6,7 +6,7 @@ public class BlueBerryDecorator extends AddOnsDecorator {
     }
 
     @Override
-    public int getTotalPrice() {
+    public double getTotalPrice() {
         return super.getTotalPrice() + 3;
     }
 }

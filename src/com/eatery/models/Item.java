@@ -3,12 +3,12 @@ package com.eatery.models;
 public abstract class Item {
     private int itemId;
     String itemName;
-    int price;
+    double price;
     Boolean visibility;
     int offers;
     String type;
 
-    Item(int itemId, String itemName, int price, Boolean visibility, int offers, String type){
+    Item(int itemId, String itemName, double price, Boolean visibility, int offers, String type){
         this.itemId = itemId;
         this.itemName = itemName;
         this.price = price;
@@ -33,7 +33,7 @@ public abstract class Item {
         this.itemName = itemName;
     }
 
-    public int getPrice() {
+    public double getPrice() {
         return price;
     }
 
@@ -65,6 +65,6 @@ public abstract class Item {
         this.type = type;
     }
 
-    abstract public int getTotalPrice();
+    abstract public double getTotalPrice();
 
 }

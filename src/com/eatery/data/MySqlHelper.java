@@ -35,7 +35,7 @@ public class MySqlHelper implements DBHelper {
             // create the mysql insert prepared statement
             PreparedStatement preparedStmt = con.prepareStatement(query);
             preparedStmt.setString(1, item.getItemName());
-            preparedStmt.setInt(2, item.getPrice());
+            preparedStmt.setDouble(2, item.getPrice());
             preparedStmt.setBoolean(3, item.getVisibility());
             preparedStmt.setInt(4, item.getOffers());
             preparedStmt.setString(5, item.getType());
@@ -65,7 +65,7 @@ public class MySqlHelper implements DBHelper {
             // execute the prepared statement
             ResultSet resultSet = preparedStmt.executeQuery();
             String itemName = resultSet.getString("ItemName");
-            int price = resultSet.getInt("Price");
+            double price = resultSet.getInt("Price");
             Boolean visibility = resultSet.getBoolean("Visibility");
             int offers = resultSet.getInt("Offers");
             String type = resultSet.getString("Type");
@@ -111,7 +111,7 @@ public class MySqlHelper implements DBHelper {
             while (resultSet.next()) {
                 int itemId = resultSet.getInt("ItemId");
                 String itemName = resultSet.getString("ItemName");
-                int price = resultSet.getInt("Price");
+                double price = resultSet.getInt("Price");
                 Boolean visibility = resultSet.getBoolean("Visibility");
                 int offers = resultSet.getInt("Offers");
                 String type = resultSet.getString("Type");
@@ -153,7 +153,7 @@ public class MySqlHelper implements DBHelper {
 
             PreparedStatement preparedStmt = con.prepareStatement(query);
             preparedStmt.setString(1, item.getItemName());
-            preparedStmt.setInt(2, item.getPrice());
+            preparedStmt.setDouble(2, item.getPrice());
             preparedStmt.setBoolean(3, item.getVisibility());
             preparedStmt.setInt(4, item.getOffers());
             preparedStmt.setString(5, item.getType());

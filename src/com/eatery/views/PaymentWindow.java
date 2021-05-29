@@ -109,6 +109,7 @@ public class PaymentWindow extends View{
                 {
                     failureMessage.setText("Payment failed.Please try again.");
                 }
+                billingFrame.setVisible(false);
 
             }
         });

@@ -8,13 +8,14 @@ import com.eatery.views.CustomerWindow1;
 import com.eatery.views.FirstWindow;
 import com.eatery.views.PaymentWindow;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class App {
 
-        public static void main(String[] args) throws SQLException, ClassNotFoundException {
+        public static void main(String[] args) throws SQLException, ClassNotFoundException, IOException {
 
             // TODO: STEP 1 Create a Database connection
                MySqlHelper mySqlHelper = MySqlHelper.getInstance();

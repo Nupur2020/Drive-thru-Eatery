@@ -1,12 +1,12 @@
 package com.eatery.models;
 
 public class Drinks extends Item {
-    Drinks(int itemId, String itemName, int price, Boolean visibility, int offers) {
+    Drinks(int itemId, String itemName, double price, Boolean visibility, int offers) {
         super(itemId, itemName, price, visibility, offers, "drinks");
     }
 
     @Override
-    public int getTotalPrice() {
+    public double getTotalPrice() {
         return 0;
     }
 

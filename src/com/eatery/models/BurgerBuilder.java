@@ -3,12 +3,12 @@ package com.eatery.models;
 public class BurgerBuilder extends ItemBuilder {
     private String name;
     private boolean isVisible = false;
-    private int price;
+    private double price;
     private int id = -1;
     private int offers = 0;
 
 
-    public BurgerBuilder(String name, int price) {
+    public BurgerBuilder(String name, double price) {
         this.name = name;
         this.price = price;
     }

@@ -5,7 +5,7 @@ public class ButterscotchDecorator extends AddOnsDecorator {
         super(itemToBeDecorated);
     }
     @Override
-    public int getTotalPrice() {
+    public double getTotalPrice() {
         return super.getTotalPrice() + 4;
     }
 }

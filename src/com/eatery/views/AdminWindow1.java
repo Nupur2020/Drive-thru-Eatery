@@ -55,8 +55,8 @@ public class AdminWindow1 extends View {
         setPriceTextField.setBounds(220, 30, 89, 23);
         frame.getContentPane().add(setPriceTextField);*/
 
-        addFoodItemButton = new JButton("AddButton");
-        addFoodItemButton.setBounds(320, 30, 120, 23);
+        addFoodItemButton = new JButton("Click this AddButton to add new items");
+        addFoodItemButton.setBounds(140, 30, 270, 23);
         frame.add(addFoodItemButton);
 
 

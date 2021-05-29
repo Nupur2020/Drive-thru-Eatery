@@ -9,8 +9,8 @@ public abstract class AddOnsDecorator {
 
     }
 
-    public  int getTotalPrice() {
-    int price = itemToBeDecorated.getTotalPrice();
+    public  double getTotalPrice() {
+        double price = itemToBeDecorated.getTotalPrice();
     return price;
     }
 }
