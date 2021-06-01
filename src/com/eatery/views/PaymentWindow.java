@@ -7,6 +7,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class PaymentWindow extends View{
     JFrame billingFrame = new JFrame();
@@ -24,6 +25,10 @@ public class PaymentWindow extends View{
     JTextField creditCardNameTextField;
     JTextField creditCardExpiryTextField;
     JTextField creditCardCVVTextField;
+    private String cardNum;
+    private String cardName;
+    private String cardCVV;
+    private String cardExpiry;
 
 
     public PaymentWindow(IController controller){
@@ -97,23 +102,33 @@ public class PaymentWindow extends View{
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                String cardNum = creditCardNumTextField.getText();
-                String cardName = creditCardNameTextField.getText();
-                String cardExpiry = creditCardExpiryTextField.getText();
-                String cardCVV = creditCardCVVTextField.getText();
-                if (cardNum.matches("[0-9]+") && cardNum.length() == 16 && cardName.matches("^[a-zA-Z]([-']?[a-zA-Z]+)*( [a-zA-Z]([-']?[a-zA-Z]+)*)+$") && cardCVV.matches("[0-9]+") && cardCVV.length() == 3 &&
-                cardExpiry.matches("\\d{2}/\\d{2}")){
-                    successMessage.setText("Payment Successful. Enjoy your meal!!");
-                }else
-                {
-                    failureMessage.setText("Payment failed.Please try again.");
-                }
-                billingFrame.setVisible(false);
-
+                cardNum = creditCardNumTextField.getText();
+                cardName = creditCardNameTextField.getText();
+                cardExpiry = creditCardExpiryTextField.getText();
+                cardCVV = creditCardCVVTextField.getText();
+                printMessage();
             }
         });
 
 
+
+    }
+
+
+    public void printMessage(){
+        if (cardNum.matches("[0-9]+") && cardNum.length() == 16 && cardName.matches("^[a-zA-Z]([-']?[a-zA-Z]+)*( [a-zA-Z]([-']?[a-zA-Z]+)*)+$") && cardCVV.matches("[0-9]+") && cardCVV.length() == 3 &&
+                cardExpiry.matches("\\d{2}/\\d{2}")){
+
+            successMessage.setText("Payment Successful. Enjoy your meal!!");
+            Timer timer = new Timer(5000, ee -> {
+                billingFrame.setVisible(false);
+            });
+            timer.setRepeats(false);
+            timer.start();
+        }else
+        {
+            failureMessage.setText("Payment failed.Please try again.");
+        }
 
     }
 
