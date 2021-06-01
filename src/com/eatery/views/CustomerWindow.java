@@ -1,13 +1,11 @@
 package com.eatery.views;
 
 import com.eatery.controllers.IController;
-import com.eatery.data.MysqlCon;
 import com.eatery.models.*;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 

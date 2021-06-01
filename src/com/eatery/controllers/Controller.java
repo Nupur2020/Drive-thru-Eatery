@@ -4,7 +4,6 @@ import com.eatery.controllers.handlers.ClickHandler;
 import com.eatery.controllers.handlers.SaveClickHandler;
 import com.eatery.controllers.handlers.UpdateClickHandler;
 import com.eatery.data.MySqlHelper;
-import com.eatery.data.MysqlCon;
 import com.eatery.models.Item;
 import com.eatery.models.Operation;
 import com.eatery.views.*;
@@ -17,15 +16,7 @@ import java.util.List;
 public class Controller implements IController {
     private ArrayList<Item> data;
     private ArrayList<ItemChangedListener> subscribers;
-
-
-    //private AdminWindow1 adminWindow1;
-    private CustomerWindow customerWindow;
-    private FirstWindow firstWindow;
-    private PaymentWindow paymentWindow;
-    private MysqlCon mysqlCon;
     private MySqlHelper dbHelper;
-
     private ClickHandler handler;
 
     public Controller() throws SQLException, ClassNotFoundException {
