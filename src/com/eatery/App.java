@@ -1,3 +1,5 @@
+package com.eatery;
+
 import com.eatery.controllers.Controller;
 import com.eatery.data.MySqlHelper;
 import com.eatery.models.Item;
