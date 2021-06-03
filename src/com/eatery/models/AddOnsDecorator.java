@@ -10,7 +10,7 @@ public abstract class AddOnsDecorator {
     }
 
     public  double getTotalPrice() {
-        double price = itemToBeDecorated.getTotalPrice();
-    return price;
+        double price = itemToBeDecorated.getPrice();
+        return price;
     }
 }

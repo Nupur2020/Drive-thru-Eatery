@@ -21,4 +21,8 @@ public class Burger extends Item {
 
     }
 
+    public double getPrice(){
+        return price;
+    }
+
 }
