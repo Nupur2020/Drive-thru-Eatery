@@ -117,7 +117,7 @@ public class PaymentWindow extends View{
 
     public void printMessage(){
         if (cardNum.matches("[0-9]+") && cardNum.length() == 16 && cardName.matches("^[a-zA-Z]([-']?[a-zA-Z]+)*( [a-zA-Z]([-']?[a-zA-Z]+)*)+$") && cardCVV.matches("[0-9]+") && cardCVV.length() == 3 &&
-                cardExpiry.matches("\\d{2}/\\d{2}")){
+                 cardExpiry.matches("(0[1-9]|10|11|12)/20[0-9]{2}$")){
 
             successMessage.setText("Payment Successful. Enjoy your meal!!");
             Timer timer = new Timer(5000, ee -> {
