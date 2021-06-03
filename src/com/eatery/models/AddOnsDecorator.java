@@ -2,7 +2,7 @@ package com.eatery.models;
 
 public abstract class AddOnsDecorator {
     Item itemToBeDecorated;
-    int price;
+    double price;
 
     public AddOnsDecorator(Item itemToBeDecorated){
         this.itemToBeDecorated = itemToBeDecorated;

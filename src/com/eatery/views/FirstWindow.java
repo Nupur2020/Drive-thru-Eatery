@@ -53,7 +53,7 @@ public class FirstWindow extends View {
         parent.add(lbl);
 
         startButton = new JButton();
-        startButton.setText("Start Application");
+        startButton.setText("Click Here to Begin");
         startButton.setBounds(120, 230, 150, 23);
         parent.add(startButton);
         parent.setSize(400,400);

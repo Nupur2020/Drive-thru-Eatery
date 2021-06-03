@@ -14,15 +14,15 @@ public class App {
         public static void main(String[] args) throws SQLException, ClassNotFoundException, IOException {
 
             // TODO: STEP 1 Create a Database connection
-               MySqlHelper mySqlHelper = MySqlHelper.getInstance();
+               //MySqlHelper mySqlHelper = MySqlHelper.getInstance();
 
             // TODO STEP 2 Read the data from database
-                ArrayList<Item> data = (ArrayList<Item>) mySqlHelper.getItems();
+                //ArrayList<Item> data = (ArrayList<Item>) mySqlHelper.getItems();
 
-            // TODO STEP 4 Init Controller
+            // TODO STEP 1 Init Controller
             Controller c = new Controller();
 
-            // TODO STEP 3 Initialize UI
+            // TODO STEP 2 Initialize UI
             FirstWindow firstWindow = new FirstWindow(c);
         }
     }

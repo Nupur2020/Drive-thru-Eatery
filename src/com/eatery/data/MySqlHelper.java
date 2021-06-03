@@ -26,14 +26,14 @@ public class MySqlHelper implements DBHelper {
 
     @Override
     public int createItem(Item item) throws SQLException {
-        int itemIdCount = -1;
+        int itemId = -1;
         try {
 
             String query = "INSERT INTO items (ItemName, Price, Visibility, Offers, Type)"
                     + " values (?, ?, ?, ?, ?)";
 
             // create the mysql insert prepared statement
-            PreparedStatement preparedStmt = con.prepareStatement(query);
+            PreparedStatement preparedStmt = con.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             preparedStmt.setString(1, item.getItemName());
             preparedStmt.setDouble(2, item.getPrice());
             preparedStmt.setBoolean(3, item.getVisibility());
@@ -41,14 +41,18 @@ public class MySqlHelper implements DBHelper {
             preparedStmt.setString(5, item.getType());
 
             // execute the prepared statement
-            itemIdCount = preparedStmt.executeUpdate();
+            preparedStmt.executeUpdate();
+            ResultSet rs = preparedStmt.getGeneratedKeys();
+            if(rs.next()){
+                itemId =  rs.getInt(1);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         } //finally {
            // con.close();
         //}
 
-        return itemIdCount;
+        return itemId;
     }
 
     @Override
@@ -165,7 +169,7 @@ public class MySqlHelper implements DBHelper {
         } catch(Exception s){
             s.printStackTrace();
         } finally {
-            con.close();
+            //con.close();
         }
         if(rowAffected == 1){
             return true;

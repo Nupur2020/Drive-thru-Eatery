@@ -38,9 +38,6 @@ public class Controller implements IController {
     }
 
 
-
-
-
     @Override
     public void startApplication() {
         String[] options = {"Administrator", "Customer"};
@@ -60,8 +57,6 @@ public class Controller implements IController {
 
         }
     }
-
-
 
 
     @Override
